@@ -1,21 +1,18 @@
 /* auth-middleware.js */
 const validUser = {
-  username: 'link',
+  username: 'link77',
   password: '1234'
 };
 
 const authMiddleware = (req, res, next) => {
   const { username, password } = req.headers;
-
   if (!username || !password) {
-    return res.status(401).json({ message: 'Username or password can`t be blank!' });
+    return res.status(401).json({ message: 'Nome ou senha inxistentes!' });
   }
-
-  if (username !== validUser.username || password !== validUser.password) {
-    return res.status(401).json({ message: 'Invalid credentials!' });
+    if(username !== validUser.username ||  password !== validUser.password) {
+    return res.status(401).json({ message: 'Nome ou senha não autorizados!' });
   }
-
-  next();
+next();  
 };
 
 module.exports = authMiddleware;
