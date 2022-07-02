@@ -24,13 +24,13 @@ const getSearchByName_maxPrice = async (req, res) => {
     const recipes = data.filter(u=> u.name
       .toLowerCase()
       .includes(name
-        .toLowerCase()) && u.price < maxPrice);
-   
+        .toLowerCase()) && u.price < maxPrice);   
     if (recipes.length === 0) {
       return res
       .status(404)
-      .json({ message: 'Recipes not found!'});
-    return res.status(200).json(recipes)};
+      .json({ message: 'Recipes not found!'})
+    };
+    return res.status(200).json(recipes);
     
 }
 
