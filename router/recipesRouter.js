@@ -1,19 +1,21 @@
 const express = require('express');
-const router = express.Router();
+const routes = express.Router();
 const Author = require('../service/Author');
-const { authMiddleware } = require('../middleware');
+const { authMiddleware , errorHandler} = require('../middleware');
 
-router.use(authMiddleware)
-router.get('/search',  Author.getSearchByName_maxPrice);
-router.get('/',  Author.get);
-router.get('/:id', Author.getById);
 
-router.post('/', Author.post);
 
-router.put('/:id', Author.putById);
+routes.use(authMiddleware)
+routes.get('/:id', Author.getById);
+routes.get('/search',  Author.getSearchByName_maxPrice);
+routes.get('/',  Author.get);
 
-router.delete('/:id', Author.deleteById);
+routes.post('/', Author.post);
 
-router.all('*', Author.notFound);
+routes.put('/:id', Author.putById);
 
-module.exports = router;
+routes.delete('/:id', Author.deleteById);
+
+routes.all('*', Author.notFound);
+
+module.exports = routes;

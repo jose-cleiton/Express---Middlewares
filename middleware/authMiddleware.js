@@ -4,15 +4,18 @@ const validUser = {
   password: '1234'
 };
 
-const authMiddleware = (req, res, next) => {
+module.exports =  (req, res, next) => {
   const { username, password } = req.headers;
+  const token = req.headers.authorization;
+  if (!token ||token === undefined) {
+    return next({status:401, message: '<-- Sem token -->'});
+  }
   if (!username || !password) {
-    return res.status(401).json({ message: 'Nome ou senha inxistentes!' });
+    return next({status:401, message: '<--Nome ou senha inxistentes!-->' });
   }
     if(username !== validUser.username ||  password !== validUser.password) {
-    return res.status(401).json({ message: 'Nome ou senha não autorizados!' });
+    return next({ status:401, message: '<--Nome ou senha não autorizados!-->' });
   }
 next();  
 };
 
-module.exports = authMiddleware;
